@@ -37,6 +37,12 @@ nosetests.xml
 
 # buildout
 bootstrap
+bootstrap.py
 include
 filestorage
 blobstorage
+secret.cfg
+src/
+
+# PyCharm
+.idea
