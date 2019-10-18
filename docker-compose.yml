@@ -1,0 +1,34 @@
+version: "2"
+services:
+  plone:
+    build: .
+    restart: unless-stopped
+    ports:
+    - "18080:8080"
+    depends_on:
+    - zeo
+    environment:
+      ZEO_ADDRESS: "zeo:8080"
+      TZ: "Europe/Bucharest"
+      MEMCACHE_SERVER: "memcached:11211"
+  zeo:
+    image: plone:4.3.18
+    restart: unless-stopped
+    environment:
+      TZ: "Europe/Bucharest"
+    volumes:
+    - data:/data
+    command:
+    - zeo
+  memcached:
+    image: memcached:1.5.7
+    restart: unless-stopped
+    environment:
+      TZ: "Europe/Bucharest"
+    command:
+    - "-m"
+    - "512"
+
+volumes:
+  data:
+    driver: local
